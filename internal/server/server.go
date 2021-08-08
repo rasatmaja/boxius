@@ -30,11 +30,11 @@ func New() *App {
 func (a *App) Start() {
 	fmt.Println("[ SRVR ] Starting server...")
 	a.FileSystem()
+	a.Route()
 	a.InitializeShutdownSequence()
 	defer fmt.Println("[ SRVR ] Server Shutdown...")
 
 	a.ServerListen()
-
 }
 
 // ServerListen is a function to initialize server listen
