@@ -28,7 +28,8 @@ func New() *App {
 
 // Start is a function to start server
 func (a *App) Start() {
-
+	fmt.Println("[ SRVR ] Starting server...")
+	a.FileSystem()
 	a.InitializeShutdownSequence()
 	defer fmt.Println("[ SRVR ] Server Shutdown...")
 
