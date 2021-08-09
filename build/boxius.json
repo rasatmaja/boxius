@@ -1,0 +1,7 @@
+{
+    "apps" : [{
+        "name"    : "boxius",
+        "script"  : "./boxius.app",
+        "env"     : {}
+    }]
+}
