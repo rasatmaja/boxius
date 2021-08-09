@@ -6,27 +6,27 @@ on: [pull_request]
   #     - 'v*'
 
 jobs:
-  build-release:
-    name: Build Release
-    runs-on: ubuntu-latest
-    steps:
-    - name: Setup timezone to Asia/Jakarta
-      run: |
-        sudo timedatectl set-timezone Asia/Jakarta  
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-        body: | 
+  # build-release:
+  #   name: Build Release
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Setup timezone to Asia/Jakarta
+  #     run: |
+  #       sudo timedatectl set-timezone Asia/Jakarta  
+  #   - name: Checkout code
+  #     uses: actions/checkout@v2
+  #   - name: Create Release
+  #     id: create_release
+  #     uses: actions/create-release@v1
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     with:
+  #       tag_name: ${{ github.ref }}
+  #       release_name: ${{ github.ref }}
+  #       body: | 
 
-        draft: false
-        prerelease: false        
+  #       draft: false
+  #       prerelease: false        
 
   deploy-app:   
     needs: build-release
