@@ -74,6 +74,7 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         source: "build/${{ env.APP_NAME }}.app, build/Makefile, build/${{ env.APP_NAME }}.json"
         target: ${{ secrets.SSH_TARGET_PATH }}
+        strip_components: 1
 
     - name: Execute app into server via SSH
       uses: appleboy/ssh-action@master
