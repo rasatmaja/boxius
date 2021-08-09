@@ -29,7 +29,7 @@ jobs:
   #       prerelease: false        
 
   deploy-app:   
-    needs: build-release
+    # needs: build-release
     name: Deploy App
     runs-on: ubuntu-latest
     env:
