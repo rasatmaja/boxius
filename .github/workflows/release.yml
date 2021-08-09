@@ -63,7 +63,7 @@ jobs:
 
     - name: Building Go Apps
       run: |
-          go build -a -ldflags '-extldflags "-static"' -o ${{ env.APP_NAME }}.app ${{ env.APP_MAIN_PATH }} 
+          go build -a -ldflags '-extldflags "-static"' -o build/${{ env.APP_NAME }}.app ${{ env.APP_MAIN_PATH }} 
 
     - name: Deploy app into server via SSH
       uses: appleboy/scp-action@master
