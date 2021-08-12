@@ -11,9 +11,5 @@ func (a *App) FileSystem() {
 
 	fmt.Println("[ SRVR ] Preparing filesystem...")
 
-	a.server.Static("/", "./public", fiber.Static{
-		Compress:  true,
-		ByteRange: true,
-		Browse:    true,
-	})
+	a.server.Static("/", "./public", fiber.Static{ByteRange: true})
 }
