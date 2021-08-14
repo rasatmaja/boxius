@@ -41,11 +41,11 @@ jobs:
       id: gitdiff
       run: echo "::set-output name=istest::${{ env.GIT_DIFF }}"    
     - name: Generate code coverage 
-      if: env.GIT_DIFF   
+      # if: env.GIT_DIFF   
       run: |
         go tool cover -func cover.out -o coverage.out
     - name: 'Upload Go code coverage artifact'
-      if: env.GIT_DIFF
+      # if: env.GIT_DIFF
       uses: actions/upload-artifact@v2
       with:
         name: coverage
@@ -54,22 +54,22 @@ jobs:
   
   publish-code-coverage:
     name: Publish Code Coverage
-    # needs: linting-unit-test
+    needs: linting-unit-test
     runs-on: ubuntu-latest
     steps:
       - name: Download coverage artifact
-        # if: ${{ needs.linting-unit-test.outputs.gitdiffs }}
+        if: ${{ needs.linting-unit-test.outputs.gitdiffs }}
         uses: actions/download-artifact@v2
         with:
           name: coverage
       - name: Display code coverage
-        # if: ${{ needs.linting-unit-test.outputs.gitdiffs }}
+        if: ${{ needs.linting-unit-test.outputs.gitdiffs }}
         shell: bash
         run: |
           ls
           cat coverage.out
       - name: Publish code coverage into PR
-        # if: ${{ needs.linting-unit-test.outputs.gitdiffs }}
+        if: ${{ needs.linting-unit-test.outputs.gitdiffs }}
         uses: actions/github-script@v4
         with:
           script: |
