@@ -54,7 +54,7 @@ jobs:
   
   publish-code-coverage:
     name: Publish Code Coverage
-    needs: linting-unit-test
+    # needs: linting-unit-test
     runs-on: ubuntu-latest
     steps:
       - name: Download coverage artifact
