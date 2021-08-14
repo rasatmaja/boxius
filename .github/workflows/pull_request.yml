@@ -91,7 +91,7 @@ jobs:
                 }); 
 
                 if (total > min) {
-                  core.setFailed('Code coverage doesn't meet minimum target');
+                  core.setFailed('Code coverage doesnt meet minimum target');
                 }
             })
               
