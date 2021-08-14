@@ -58,18 +58,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download coverage artifact
-        if: ${{ needs.linting-unit-test.outputs.gitdiffs }}
+        # if: ${{ needs.linting-unit-test.outputs.gitdiffs }}
         uses: actions/download-artifact@v2
         with:
           name: coverage
       - name: Display code coverage
-        if: ${{ needs.linting-unit-test.outputs.gitdiffs }}
+        # if: ${{ needs.linting-unit-test.outputs.gitdiffs }}
         shell: bash
         run: |
           ls
           cat coverage.out
       - name: Publish code coverage into PR
-        if: ${{ needs.linting-unit-test.outputs.gitdiffs }}
+        # if: ${{ needs.linting-unit-test.outputs.gitdiffs }}
         uses: actions/github-script@v4
         with:
           script: |
@@ -81,7 +81,7 @@ jobs:
                 let total = splitArray[splitArray.length - 2].replace(/[^\d.-]/g, '');
                 let min = 50;
 
-                let body_msg = total > min ? '## 🎉 Yay, Code Coverage: ' + total + '% \n' + 'Congrats your code coverage is above the minimum value of **' + min + '%**, which is its great' : '## 🤬 Oh no.. , Code Coverage: ' + total + '% \n';
+                let body_msg = total < min ? '## 🎉 Yay, Code Coverage: ' + total + '% \n' + 'Congrats your code coverage is above the minimum value of **' + min + '%**, which is its great' : '## 🤬 Oh no.. , Code Coverage: ' + total + '% \n';
 
                 github.issues.createComment({
                   issue_number: context.issue.number,
@@ -89,5 +89,9 @@ jobs:
                   repo: context.repo.repo,
                   body: body_msg + '\n' + '<details><summary><b>Code Coverage Report</b></summary><p>' + '\n\n' + '``` \n' + data + ' \n ``` \n' + '</p></details>'
                 }); 
+
+                if (total > min) {
+                  core.setFailed('Code coverage doesn't meet minimum target');
+                }
             })
               
