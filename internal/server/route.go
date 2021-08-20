@@ -10,6 +10,8 @@ import (
 func (a *App) Route() {
 	fmt.Println("[ SRVR ] Starting router...")
 	defer a.server.Use(a.ResourceNotfound)
+
+	a.server.Post("/upload/image", a.ImageUpload)
 }
 
 // ResourceNotfound is a handler to handle undefined route
