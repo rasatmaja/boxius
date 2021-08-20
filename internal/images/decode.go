@@ -6,6 +6,8 @@ import (
 	"image/jpeg"
 	"image/png"
 	"mime/multipart"
+
+	"github.com/rasatmaja/boxius/internal/images/webp"
 )
 
 const (
@@ -13,6 +15,8 @@ const (
 	JPEGMime = "image/jpeg"
 	// PNGMime png content type
 	PNGMime = "image/png"
+	// WebPMime webp content type
+	WebPMime = "image/webp"
 )
 
 // Decode images file
@@ -30,6 +34,8 @@ func Decode(file *multipart.FileHeader) (image.Image, error) {
 		return jpeg.Decode(rawImg)
 	case PNGMime:
 		return png.Decode(rawImg)
+	case WebPMime:
+		return webp.Decode(rawImg)
 	}
 
 	return nil, fmt.Errorf("image type:%s not supported", fileType)
