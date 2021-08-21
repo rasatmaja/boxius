@@ -4,18 +4,25 @@ import (
 	"fmt"
 	"image"
 	"os"
+	"path/filepath"
 
 	"github.com/rasatmaja/boxius/internal/images/webp"
 )
 
 // SaveWebP a function to save image into WebP format
-func SaveWebP(img image.Image, path, filename string) error {
+func SaveWebP(img image.Image, path, filename string) (string, error) {
 
-	file, err := os.Create(fmt.Sprintf("%s/%s.webp", path, filename))
-	defer file.Close()
-	if err != nil {
-		return err
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		os.MkdirAll(path, os.ModePerm)
 	}
 
-	return webp.Encode(file, img, nil)
+	filename = fmt.Sprintf("%s.webp", filename)
+	path = filepath.Join(path, filename)
+	file, err := os.Create(path)
+	defer file.Close()
+	if err != nil {
+		return "", err
+	}
+
+	return path, webp.Encode(file, img, nil)
 }
